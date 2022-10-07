@@ -25,11 +25,9 @@ class SJF {
                 continue;
             }
 
-            int waiting_time = time - processes[current_job][1];
-
             time += processes[current_job][2];
-
             int turn_around_time = time - processes[current_job][1];
+            int waiting_time = turn_around_time - processes[current_job][2];
 
             res.push_back(processes[current_job]);
             res.back().push_back(waiting_time);
@@ -41,6 +39,8 @@ class SJF {
     }
 
     void showTable(vector<vector<int>>& sjf) {
+        sort(sjf.begin(), sjf.end(), [](auto& a, auto& b) { return a[0] < b[0]; });
+
         double avgWaitingTime = 0, avgTurnAroundTime = 0;
 
         cout << "Processes Arival-Time Burst-Time  Waiting-Time  Turn-around-Time" << endl;
